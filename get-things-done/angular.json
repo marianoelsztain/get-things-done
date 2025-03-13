@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "get-things-done"
+    }
+  },
+  "defaultProject": "get-things-done",
+  "cli": {
+    "analytics": false
+  }
 }
