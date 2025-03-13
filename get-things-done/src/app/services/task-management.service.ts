@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Task } from '../models/task';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskManagementService {
-  taskList: Task[]
+  public taskList = new Subject<Task[]>()
 
   constructor() { }
 
-  getTaskList() {
+  getTaskList(): Observable<Task[]> {
+    return this.taskList.asObservable();
+  }
+
+  retrieveTaskListFromStorage() {
     const taskListString = window.localStorage.getItem('taskList');
-    this.taskList = JSON.parse(taskListString);
+    this.taskList.next(JSON.parse(taskListString));
   }
 
   saveTaskList(listToSave: Task[]) {
