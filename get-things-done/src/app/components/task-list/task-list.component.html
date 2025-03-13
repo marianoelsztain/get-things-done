@@ -1,0 +1,5 @@
+<div *ngIf="taskList | async as tl">
+  <div *ngFor="task in tl">
+    <app-task [task]="task"></app-task>
+  </div>
+</div>
