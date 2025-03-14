@@ -1,17 +1,35 @@
 import { Injectable } from '@angular/core';
 import { Task } from '../models/task';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest } from 'rxjs';
+import { map, startWith, withLatestFrom } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+import { Filters } from '../models/filters';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskManagementService {
   public taskListSubject = new BehaviorSubject<Task[]>([])
+  public filterControl = new FormControl(Filters.all)
 
-  taskList$ = this.taskListSubject.asObservable().pipe(
-    map((taskList) => taskList.filter((task) => !task.deleted)),
-  );
+  private filterValueChanges$ = this.filterControl.valueChanges.pipe(startWith(Filters.all))
+
+  taskList$ = combineLatest([this.taskListSubject.asObservable(), this.filterValueChanges$])
+    .pipe(
+      map(([taskList, currentFilter]) =>{
+        return taskList.filter((task) => {
+          switch (currentFilter) {
+            case Filters.completed:
+              return !task.deleted && task.completed;
+            case Filters.incomplete:
+              return !task.deleted && !task.completed;
+            case Filters.all:
+            default:
+              return !task.deleted;
+          }
+        })
+      })
+    );
 
   deletedTasks$ = this.taskListSubject.asObservable().pipe(
     map((taskList) => taskList.filter((task) => task.deleted)),
