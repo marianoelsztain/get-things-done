@@ -9,6 +9,7 @@ import { AddTaskComponent } from './components/add-task/add-task.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FilterTasksComponent } from './components/filter-tasks/filter-tasks.component';
+import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { FilterTasksComponent } from './components/filter-tasks/filter-tasks.com
     TaskListComponent,
     TaskComponent,
     AddTaskComponent,
-    FilterTasksComponent
+    FilterTasksComponent,
+    DeleteModalComponent
   ],
   imports: [
     BrowserModule,

@@ -3,5 +3,6 @@
     <input [formControl]="completedControl" type="checkbox" [checked]="task.completed" (change)="onTaskCheckClick()" [id]="'task-done-' + index"/>
     <label [for]="'task-done-' + index" [class.completed-title]="task.completed">{{ task.title }}</label>
   </div>
-  <button (click)="onDeleteTaskClick()">Delete Task</button>
+  <button (click)="onDeleteTaskClick()">Delete</button>
+  <app-delete-modal *ngIf="displayDeleteModal" [task]="task" (cancelClicked)="handleModalCancelClicked()"></app-delete-modal>
 </div>

@@ -1,0 +1,47 @@
+.modal-overlay {
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+  opacity: 50%;
+  background-color: black;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+
+
+  .modal {
+    position: absolute;
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(calc(-50% - 0.5px));
+    width: 250px;
+
+    .modal-header {
+      border-bottom: 1px solid gray;
+      padding: 1rem;
+
+    }
+
+    .modal-body {
+      min-height: 75px;
+      padding: 1rem;
+
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      padding: 1rem;
+
+
+      .delete-button {
+        background-color: red;
+        color: white;
+      }
+    }
+  }
+}

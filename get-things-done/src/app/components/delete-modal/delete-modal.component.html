@@ -1,0 +1,16 @@
+<div class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      Delete Task
+    </div>
+    <div class="modal-body">
+      <p>
+        Are you sure we want to delete task "{{ task.title }}"
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button (click)="onCancelButtonClick()">Cancel</button>
+      <button class="delete-button" (click)="onDeleteButtonClick()">Delete</button>
+    </div>
+  </div>
+</div>>

@@ -13,6 +13,7 @@ export class TaskComponent implements OnInit {
   @Input() index: number;
 
   completedControl = new FormControl(false)
+  displayDeleteModal = false;
   constructor(
     private _service: TaskManagementService,
   ) { }
@@ -26,6 +27,10 @@ export class TaskComponent implements OnInit {
   }
 
   onDeleteTaskClick() {
-    this._service.deleteTask(this.task.id);
+    this.displayDeleteModal = true;
+  }
+
+  handleModalCancelClicked() {
+    this.displayDeleteModal = false;
   }
 }
