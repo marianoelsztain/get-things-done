@@ -1,5 +1,3 @@
 <div *ngIf="taskList | async as tl">
-  <div *ngFor="task in tl">
-    <app-task [task]="task"></app-task>
-  </div>
+    <app-task *ngFor="let task of tl; index as i; trackBy: trackByTaskId" [task]="task"></app-task>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { TaskManagementService } from '../../services/task-management.service';
 import { Task } from '../../models/task';
 
@@ -7,15 +7,21 @@ import { Task } from '../../models/task';
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss']
 })
-export class TaskListComponent implements OnInit {
-  taskList = this._service.getTaskList();
+export class TaskListComponent implements AfterViewInit {
+  taskList = this._service.taskList$;
 
   constructor(
     private _service: TaskManagementService,
+    private _cdr: ChangeDetectorRef,
   ) { }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
+    this._service.setDefaultState();
+    this._cdr.detectChanges();
+  }
 
+  trackByTaskId(_index, task: Task) {
+    return task.id
   }
 
 }
