@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Task } from '../models/task';
 import { BehaviorSubject, combineLatest } from 'rxjs';
-import { map, startWith, withLatestFrom } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Filters } from '../models/filters';
 
@@ -51,6 +51,11 @@ export class TaskManagementService {
     window.localStorage.setItem('taskList', JSON.stringify(listToSave));
   }
 
+  saveChanges(listToSave: Task[]) {
+    this.saveTaskListToStorage(listToSave);
+    this.updateTaskListState(listToSave);
+  }
+
   addTask(taskTitle: string) {
     const currentTaskList = this.taskListSubject.value;
     const newTaskId = currentTaskList.length + 1
@@ -58,8 +63,7 @@ export class TaskManagementService {
 
     const newTaskList = [...currentTaskList, newTask];
 
-    this.saveTaskListToStorage(newTaskList);
-    this.updateTaskListState(newTaskList);
+    this.saveChanges(newTaskList);
   }
 
   toggleTaskCompletion(taskId: number) {
@@ -68,8 +72,7 @@ export class TaskManagementService {
       task.id === taskId ? { ...task, completed: !task.completed } : task
     )
 
-    this.saveTaskListToStorage(newTaskList);
-    this.updateTaskListState(newTaskList);
+    this.saveChanges(newTaskList);
   }
 
   deleteTask(taskId: number) {
@@ -78,8 +81,7 @@ export class TaskManagementService {
       task.id === taskId ? { ...task, deleted: true } : task
     )
 
-    this.saveTaskListToStorage(newTaskList);
-    this.updateTaskListState(newTaskList);
+    this.saveChanges(newTaskList);
   }
 
   createDefaultTask(title: string, id: number): Task {
