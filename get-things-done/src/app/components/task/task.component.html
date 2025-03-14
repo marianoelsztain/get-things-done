@@ -1,5 +1,7 @@
-<div>
-  <input [formControl]="completedControl" type="checkbox" [checked]="task.completed" (change)="onTaskCheckClick()" id="task-done"/>
-  <label for="task-done" [class.completed]="task.completed">{{ task.title }}</label>
+<div class="single-task" [class.completed-task]="task.completed">
+  <div class="task-title">
+    <input [formControl]="completedControl" type="checkbox" [checked]="task.completed" (change)="onTaskCheckClick()" [id]="'task-done-' + index"/>
+    <label [for]="'task-done-' + index" [class.completed-title]="task.completed">{{ task.title }}</label>
+  </div>
   <button (click)="onDeleteTaskClick()">Delete Task</button>
 </div>

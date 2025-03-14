@@ -1,4 +1,19 @@
-.completed {
-  text-decoration: line-through;
-  font-style: italic;
+.single-task {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+
+  .task-title {
+    display: flex;
+    column-gap: 1rem;
+
+    .completed-title {
+      text-decoration: line-through;
+      font-style: italic;
+    }
+  }
+
+  &.completed-task {
+    background-color: #3e9638;
+  }
 }

@@ -1,5 +1,7 @@
-<div>
+<div class="add-task-container">
   <label for="task-title">Task Title</label>
-  <input [formControl]="taskTitle" id="task-title" type="text">
-  <button [disabled]="isAddTaskDisabled()" (click)="onAddTaskClick()">Add Task</button>
+  <div class="add-task-input">
+    <input [formControl]="taskTitle" id="task-title" type="text">
+    <button [disabled]="isAddTaskDisabled()" (click)="onAddTaskClick()">Add Task</button>
+  </div>
 </div>

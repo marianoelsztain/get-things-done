@@ -1,0 +1,10 @@
+.add-task-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+
+  .add-task-input {
+    display: flex;
+    column-gap: 0.5rem;
+  }
+}

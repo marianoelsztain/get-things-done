@@ -10,6 +10,7 @@ import { TaskManagementService } from '../../services/task-management.service';
 })
 export class TaskComponent implements OnInit {
   @Input() task: Task;
+  @Input() index: number;
 
   completedControl = new FormControl(false)
   constructor(
