@@ -4,8 +4,7 @@ import { Task } from '../../models/task';
 
 @Component({
   selector: 'app-task-list',
-  templateUrl: './task-list.component.html',
-  styleUrls: ['./task-list.component.scss']
+  templateUrl: './task-list.component.html'
 })
 export class TaskListComponent implements AfterViewInit {
   taskList = this._service.taskList$;
