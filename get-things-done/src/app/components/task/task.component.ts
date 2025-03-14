@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Task } from '../../models/task';
 import { FormControl } from '@angular/forms';
+import { TaskManagementService } from '../../services/task-management.service';
 
 @Component({
   selector: 'app-task',
@@ -11,15 +12,18 @@ export class TaskComponent implements OnInit {
   @Input() task: Task;
 
   completedControl = new FormControl(false)
-  constructor() { }
+  constructor(
+    private _service: TaskManagementService,
+  ) { }
 
   ngOnInit(): void {
-    this.completedControl.setValue(this.task.completed);
-    this.completedControl.valueChanges.pipe(
-
-    )
   }
 
+  onTaskCheckClick() {
+    this._service.toggleTaskCompletion(this.task.id)
+  }
 
-
+  onDeleteTaskClick() {
+    this._service.deleteTask(this.task.id);
+  }
 }
