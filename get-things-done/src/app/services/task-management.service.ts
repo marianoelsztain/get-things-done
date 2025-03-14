@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Task } from '../models/task';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,13 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 export class TaskManagementService {
   public taskListSubject = new BehaviorSubject<Task[]>([])
 
-  taskList$ = this.taskListSubject.asObservable();
+  taskList$ = this.taskListSubject.asObservable().pipe(
+    map((taskList) => taskList.filter((task) => !task.deleted)),
+  );
+
+  deletedTasks$ = this.taskListSubject.asObservable().pipe(
+    map((taskList) => taskList.filter((task) => task.deleted)),
+  )
 
   constructor() { }
 
@@ -32,6 +39,26 @@ export class TaskManagementService {
     const newTask = this.createDefaultTask(taskTitle, newTaskId);
 
     const newTaskList = [...currentTaskList, newTask];
+
+    this.saveTaskListToStorage(newTaskList);
+    this.updateTaskListState(newTaskList);
+  }
+
+  toggleTaskCompletion(taskId: number) {
+    const currentTaskList = this.taskListSubject.value;
+    const newTaskList = currentTaskList.map((task) =>
+      task.id === taskId ? { ...task, completed: !task.completed } : task
+    )
+
+    this.saveTaskListToStorage(newTaskList);
+    this.updateTaskListState(newTaskList);
+  }
+
+  deleteTask(taskId: number) {
+    const currentTaskList = this.taskListSubject.value;
+    const newTaskList = currentTaskList.map((task) =>
+      task.id === taskId ? { ...task, deleted: true } : task
+    )
 
     this.saveTaskListToStorage(newTaskList);
     this.updateTaskListState(newTaskList);
