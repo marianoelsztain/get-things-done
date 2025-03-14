@@ -17,6 +17,7 @@ export class TaskComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.completedControl.setValue(this.task.completed);
   }
 
   onTaskCheckClick() {
