@@ -1,1 +1,5 @@
-<p>add-task works!</p>
+<div>
+  <label for="task-title">Task Title</label>
+  <input [formControl]="taskTitle" id="task-title" type="text">
+  <button [disabled]="isAddTaskDisabled()" (click)="onAddTaskClick()">Add Task</button>
+</div>

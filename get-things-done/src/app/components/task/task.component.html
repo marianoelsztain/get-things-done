@@ -1,4 +1,4 @@
 <div>
-  <input formControlName="completedControl" type="checkbox" id="task-done"/>
+  <input [formControl]="completedControl" type="checkbox" (click)="onTaskCheckClick()" id="task-done"/>
   <label for="task-done">{{ task.title }}</label>
 </div>
